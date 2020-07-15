@@ -2,20 +2,22 @@ import {
   KeyboardEvent,
 } from "react";
 import {
-  Category,
-} from "./Category";
+  CategoryModel,
+} from "./category-model";
+import { TodoRouter } from "../todo";
 
 export class CategoryHolder {
   private static readonly selects = new Map<string, () => void>();
   private static readonly removes = new Map<string, () => void>();
 
-  static add(event: KeyboardEvent<HTMLInputElement>) {
-    const input = event.target as HTMLInputElement;
-    if (!input.value.trim() || event.keyCode !== 13) {
+  static onKeyDown(event: KeyboardEvent<HTMLInputElement>) {
+    const target = event.currentTarget;
+    const value = target.value.trim();
+    if (event.keyCode !== 13) {
       return;
     }
-    Category.add(input.value.trim());
-    input.value = "";
+    CategoryModel.add(value);
+    target.value = "";
   }
 
   static select(key: string) {
@@ -23,7 +25,7 @@ export class CategoryHolder {
       selects,
     } = CategoryHolder;
     if (!selects.has(key)) {
-      selects.set(key, () => Category.current = key);
+      selects.set(key, () => TodoRouter.current = key);
     }
     return selects.get(key)!!;
   }
@@ -33,9 +35,12 @@ export class CategoryHolder {
       removes,
     } = CategoryHolder;
     if (!removes.has(key)) {
-      removes.set(key, () => Category.remove(key));
+      removes.set(key, () => CategoryModel.remove(key));
     }
-    console.log(removes)
     return removes.get(key)!!;
+  }
+
+  static get category() {
+    return [...CategoryModel.category];
   }
 }
