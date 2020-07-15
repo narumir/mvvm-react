@@ -1,5 +1,6 @@
 import React, {
   KeyboardEvent,
+  MouseEvent,
 } from "react";
 import {
   TodoItemModel,
@@ -26,8 +27,22 @@ export class TodoItemHolder {
     target.value = "";
   }
 
+  remove = (e: MouseEvent<HTMLButtonElement>) => {
+    const key = e.currentTarget.dataset["key"] as string;
+    if (key != null && typeof key === "string") {
+      this.vm.remove(key);
+    }
+  }
+
+  toggle = (e: MouseEvent<HTMLSpanElement>) => {
+    const key = e.currentTarget.dataset["key"] as string;
+    if (key != null && typeof key === "string") {
+      this.vm.toggle(key);
+    }
+  }
+
   get items() {
-    return [...this.vm.items];
+    return [...this.vm.items.values()];
   }
 
   get view() {

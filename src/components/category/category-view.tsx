@@ -3,14 +3,10 @@ import React, {
   useCallback,
 } from "react";
 import {
-  CategoryModel,
-} from "./category-model";
-import {
   CategoryHolder,
 } from "./category-holder";
 
 export const CategoryView: FC = () => {
-  CategoryModel.use();
   const addCategory = useCallback(CategoryHolder.add, []);
   const selectCategory = useCallback(CategoryHolder.select, []);
   const removeCategory = useCallback(CategoryHolder.remove, []);

@@ -6,19 +6,20 @@ export class TodoItemModel {
   items = new Map<string, Todo>();
 
   add = (title: string) => {
-    if (this.items.has(title)) {
-      return this.items.get(title)!!;
-    } else {
-      this.items.set(title, { title, isComplete: false });
-    }
+    this.items.set(title, { title, isComplete: false });
     TodoRouter.flush();
   }
-  delete = (title: string) => {
+
+  remove = (title: string) => {
     this.items.delete(title);
     TodoRouter.flush();
   }
-  toggle = (todo: Todo) => {
-    todo.isComplete = !todo.isComplete;
+
+  toggle = (todo: string) => {
+    const item = this.items.get(todo);
+    if (item != null) {
+      item.isComplete = !item.isComplete;
+    }
     TodoRouter.flush();
   }
 }

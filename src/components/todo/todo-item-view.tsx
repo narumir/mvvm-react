@@ -1,6 +1,5 @@
 import React, {
   FC,
-  useCallback,
 } from "react";
 import {
   TodoItemHolder,
@@ -10,17 +9,19 @@ export const TodoItemView: FC<TodoItemViewProps> = ({
   holder: {
     category,
     items,
-    add
+    add,
+    remove,
+    toggle,
   },
 }) => {
-  const addTodo = useCallback(add, []);
   return (
     <div>
       <p>{category}</p>
-      <input onKeyDown={addTodo} />
-      {items.map(([key, item]) => (
-        <li key={key}>
-          {item.title}
+      <input onKeyDown={add} />
+      {items.map((item) => (
+        <li key={item.title}>
+          <span data-key={item.title} onClick={toggle} style={{ textDecoration: item.isComplete ? "line-through" : "none" }}>{item.title}</span>
+          <button data-key={item.title} onClick={remove}>delete</button>
         </li>
       ))}
     </div>
