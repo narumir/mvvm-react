@@ -1,7 +1,6 @@
 import React, {
   FC,
   useCallback,
-  KeyboardEvent,
 } from "react";
 import {
   CategoryModel,
@@ -12,9 +11,9 @@ import {
 
 export const CategoryView: FC = () => {
   CategoryModel.use();
-  const addCategory = useCallback((e: KeyboardEvent<HTMLInputElement>) => {
-    CategoryHolder.onKeyDown(e);
-  }, []);
+  const addCategory = useCallback(CategoryHolder.add, []);
+  const selectCategory = useCallback(CategoryHolder.select, []);
+  const removeCategory = useCallback(CategoryHolder.remove, []);
   return (
     <div>
       <input
@@ -23,8 +22,8 @@ export const CategoryView: FC = () => {
       <ul>
         {CategoryHolder.category.map((cate) => (
           <li key={cate}>
-            <span onClick={CategoryHolder.select(cate)}>{cate}</span>
-            <button onClick={CategoryHolder.remove(cate)}>delete</button>
+            <span data-key={cate} onClick={selectCategory}>{cate}</span>
+            <button data-key={cate} onClick={removeCategory}>delete</button>
           </li>
         ))}
       </ul>

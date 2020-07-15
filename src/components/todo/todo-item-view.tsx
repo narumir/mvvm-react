@@ -1,5 +1,6 @@
 import React, {
   FC,
+  useCallback,
 } from "react";
 import {
   TodoItemHolder,
@@ -9,13 +10,14 @@ export const TodoItemView: FC<TodoItemViewProps> = ({
   holder: {
     category,
     items,
-    onKeyDown,
+    add
   },
 }) => {
+  const addTodo = useCallback(add, []);
   return (
     <div>
       <p>{category}</p>
-      <input onKeyDown={onKeyDown} />
+      <input onKeyDown={addTodo} />
       {items.map(([key, item]) => (
         <li key={key}>
           {item.title}

@@ -3,7 +3,7 @@ import {
 } from "src/modules";
 import {
   TodoItemHolder,
-} from "./todo-item-holder"; 
+} from "./todo-item-holder";
 
 export class TodoRouter {
   private static readonly _updater = new SimpleUpdater();
@@ -13,9 +13,11 @@ export class TodoRouter {
   static use() {
     TodoRouter._updater.use();
   }
+
   static flush() {
     TodoRouter._updater.flush();
   }
+
   static render() {
     const {
       current,

@@ -1,16 +1,19 @@
 import {
   KeyboardEvent,
+  MouseEvent,
 } from "react";
+import {
+  TodoRouter,
+} from "src/components";
 import {
   CategoryModel,
 } from "./category-model";
-import { TodoRouter } from "../todo";
 
 export class CategoryHolder {
   private static readonly selects = new Map<string, () => void>();
   private static readonly removes = new Map<string, () => void>();
 
-  static onKeyDown(event: KeyboardEvent<HTMLInputElement>) {
+  static add(event: KeyboardEvent<HTMLInputElement>) {
     const target = event.currentTarget;
     const value = target.value.trim();
     if (event.keyCode !== 13) {
@@ -20,24 +23,18 @@ export class CategoryHolder {
     target.value = "";
   }
 
-  static select(key: string) {
-    const {
-      selects,
-    } = CategoryHolder;
-    if (!selects.has(key)) {
-      selects.set(key, () => TodoRouter.current = key);
+  static select(e: MouseEvent<HTMLSpanElement>) {
+    const key = e.currentTarget.dataset["key"] as string;
+    if (key != null && typeof key === "string") {
+      TodoRouter.current = key;
     }
-    return selects.get(key)!!;
   }
 
-  static remove(key: string) {
-    const {
-      removes,
-    } = CategoryHolder;
-    if (!removes.has(key)) {
-      removes.set(key, () => CategoryModel.remove(key));
+  static remove(e: MouseEvent<HTMLButtonElement>) {
+    const key = e.currentTarget.dataset["key"] as string;
+    if (key != null && typeof key === "string") {
+      CategoryModel.remove(key);
     }
-    return removes.get(key)!!;
   }
 
   static get category() {

@@ -16,7 +16,7 @@ export class TodoItemHolder {
     this.category = category;
   }
 
-  onKeyDown = (event: KeyboardEvent<HTMLInputElement>) => {
+  add = (event: KeyboardEvent<HTMLInputElement>) => {
     const target = event.currentTarget;
     const value = target.value.trim();
     if (event.keyCode !== 13) {
