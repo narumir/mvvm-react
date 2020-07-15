@@ -10,8 +10,6 @@ import {
 } from "./category-model";
 
 export class CategoryHolder {
-  private static readonly selects = new Map<string, () => void>();
-  private static readonly removes = new Map<string, () => void>();
 
   static add(event: KeyboardEvent<HTMLInputElement>) {
     const target = event.currentTarget;
