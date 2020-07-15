@@ -1,13 +1,18 @@
-import React from "react";
+import React, {
+  FC,
+  Fragment,
+} from "react";
 import {
   CategoryView,
   TodoView,
 } from "src/components";
 
-export const App = () => {
-  return (<>
-    <h1>Todos</h1>
-    <CategoryView />
-    <TodoView />
-  </>);
+export const App: FC = () => {
+  return (
+    <Fragment>
+      <h1>Todos</h1>
+      <CategoryView />
+      <TodoView />
+    </Fragment>
+  );
 };
